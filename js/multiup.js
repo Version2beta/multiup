@@ -3,7 +3,8 @@
  * written by Rob Martin, rob@qmuxs.com
  * (c) 2011 Quintessential Mischief LLC
  *
- * Version 0.1.0 - initial release
+ * Version 0.1.1 -  1 Sep 2011 - Corrected a counting problem with the file input name
+ * Version 0.1.0 - 30 Aug 2011 - initial release
  * Dual licensed under the MIT and GPL licenses
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -14,7 +15,7 @@
 
  * Options:
  * deleteButton: Element to use for removing items from file cabinet. Default is '<span>X</span>'.
- * inputName: Name of input type file. Defaults to 'file[]';
+ * inputName: Name of input type file. Defaults to 'file_N';
  * listingCSSAfter: CSS appended to the listing in the file cabinet. Default is '</p>'.
  * listingCSSBefore: CSS prepended to the listing in the file cabinet. Default is '<p>'.
  * max: Maximum number of files to select. 0 is no limit. Default is 0.
@@ -26,12 +27,12 @@ $.fn.multiup = function(options) {
   // Initialize
   var opts = $.extend({}, $.fn.multiup.defaults, options || {});
   var $cabinet = $(this);
-  var count = 0;
+  var count = 0; var n = 0;
   var fileCurrent;
   $(this).addClass('multiup-cabinet');
 
   addF = function() {
-    fileCurrent = $('<input type="file" name="'+opts.inputName+'" />');
+    fileCurrent = $('<input type="file" name="'+opts.inputName+'_'+n+'" />');
     fileCurrent.addClass('multiup-input');
     fileCurrent.change(function() {
       $(this).css({
@@ -41,7 +42,7 @@ $.fn.multiup = function(options) {
       listF(this);
       addF();
     });
-    moreF(1);
+    moreF(1); n++;
     fileCurrent.insertBefore($cabinet);
   };
 
@@ -77,7 +78,7 @@ $.fn.multiup = function(options) {
 
 $.fn.multiup.ver = function() { return ver; };
 $.fn.multiup.defaults = {
-  inputName: 'file[]', 
+  inputName: 'file', 
   max: 0, 
   deleteButton: '<span>X</span>',
   listingCSSBefore: '<p>',
