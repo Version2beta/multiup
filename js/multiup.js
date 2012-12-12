@@ -22,12 +22,13 @@
  */
 ;(function($) {
 var ver = '0.1.0';
+var count = 0;
 
 $.fn.multiup = function(options) {
   // Initialize
   var opts = $.extend({}, $.fn.multiup.defaults, options || {});
   var $cabinet = $(this);
-  var count = 0; var n = 0;
+  var n = 0;
   var fileCurrent;
   $(this).addClass('multiup-cabinet');
 
@@ -77,6 +78,7 @@ $.fn.multiup = function(options) {
 };
 
 $.fn.multiup.ver = function() { return ver; };
+$.fn.multiup.count = function() { return count - 1; }
 $.fn.multiup.defaults = {
   inputName: 'file', 
   max: 0, 
