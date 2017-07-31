@@ -62,6 +62,8 @@ $.fn.multiup = function(options) {
       return false;
     });
     deleteButton.prependTo(itemCurrent);
+    itemCurrent[0].innerHTML = itemCurrent[0].innerHTML.replace(/C.*\\/, '')
+    console.log(itemCurrent[0]);
     itemCurrent.appendTo($cabinet);
   };
 
